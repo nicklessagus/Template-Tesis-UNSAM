@@ -19,7 +19,7 @@
 \RequirePackage{subcaption}
 \RequirePackage{amsmath,amssymb}
 \RequirePackage{todonotes}
-\RequirePackage{biblatex}
+\RequirePackage[backend=biber]{biblatex}
 
 % Bibliografía
 \addbibresource{bibliography.bib}

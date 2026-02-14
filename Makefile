@@ -18,10 +18,10 @@ all: pdf
 
 pdf:
 	$(LATEX) -interaction=nonstopmode $(MAIN_TEX)
-	@if grep -q '\\bibliography' $(MAIN_TEX); then \
+	@if [ -f "$(basename $(MAIN_TEX)).bcf" ]; then \
 		$(BIB) $(basename $(MAIN_TEX)); \
-		$(LATEX) -interaction=nonstopmode $(MAIN_TEX); \
 	fi
+	$(LATEX) -interaction=nonstopmode $(MAIN_TEX)
 	$(LATEX) -interaction=nonstopmode $(MAIN_TEX)
 	@if [ -f $(basename $(MAIN_TEX)).pdf ]; then \
 		mv $(basename $(MAIN_TEX)).pdf $(OUTPUT_PDF); \
@@ -30,13 +30,13 @@ pdf:
 
 # Compilar capítulo individual: make chapter-1
 chapter-%:
-	$(LATEX) -output-directory=$(CHAPTERS_DIR) -interaction=nonstopmode $(CHAPTERS_DIR)/chapter-$*.tex
-	@if grep -q '\bibliography' $(CHAPTERS_DIR)/chapter-$*.tex; then \
-		$(BIB) $(CHAPTERS_DIR)/chapter-$*; \
-		$(LATEX) -output-directory=$(CHAPTERS_DIR) -interaction=nonstopmode $(CHAPTERS_DIR)/chapter-$*.tex; \
+	@cd $(CHAPTERS_DIR) && $(LATEX) -interaction=nonstopmode chapter-$*.tex
+	@if [ -f "$(CHAPTERS_DIR)/chapter-$*.bcf" ]; then \
+		(cd $(CHAPTERS_DIR) && $(BIB) --input-directory=.. chapter-$*); \
 	fi
-	$(LATEX) -output-directory=$(CHAPTERS_DIR) -interaction=nonstopmode $(CHAPTERS_DIR)/chapter-$*.tex
-	@$(MAKE) clean
+	@cd $(CHAPTERS_DIR) && $(LATEX) -interaction=nonstopmode chapter-$*.tex
+	@cd $(CHAPTERS_DIR) && $(LATEX) -interaction=nonstopmode chapter-$*.tex
+	
 
 # Generar lista de TODOs (requiere todonotes)
 todos:

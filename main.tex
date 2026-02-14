@@ -14,6 +14,14 @@
 \usepackage{caption}
 \usepackage{subcaption}
 
+% Hyperref colors: use colored links (no red boxes)
+\hypersetup{
+	colorlinks=true,
+	linkcolor=blue,
+	citecolor=blue,
+	urlcolor=blue
+}
+
 % Configuración general
 \setmainfont{Latin Modern Roman}
 \graphicspath{{img/}}
@@ -28,9 +36,12 @@
 \newcommand{\draftwatermarkon}{%
 	\SetWatermarkText{DRAFT}%
 	\SetWatermarkScale{1}%
+	\gdef\draftwatermark@text{DRAFT}%
+	\gdef\draftwatermark@scale{1}%
 }
 \newcommand{\draftwatermarkoff}{%
 	\SetWatermarkText{}% empty => no watermark
+	\gdef\draftwatermark@text{}
 }
 
 \begin{document}
@@ -53,14 +64,29 @@
 \listoftables
 \listoftodos
 
-% Capítulos
+% Capítulos (control centralizado del watermark desde main.tex)
+% Ejemplo: activar watermark para el capítulo 1 y apagar para el resto
+% Use per-chapter control files so a single file controls both
+% compilación individual y compilación general.
+\clearpage
+% Control centralizado de watermark: activar antes del capítulo 1
+\draftwatermarkon
 \subfile{chapters/chapter-1}
+\clearpage
+% Apagar a partir del capítulo 2
+\draftwatermarkoff
 \subfile{chapters/chapter-2}
+\clearpage
+\draftwatermarkoff
 \subfile{chapters/chapter-3}
+\clearpage
+\draftwatermarkoff
 \subfile{chapters/chapter-4}
+\clearpage
+\draftwatermarkoff
 \subfile{chapters/chapter-5}
 
 % Bibliografía
-\printbibliography
+\printbibliography[title={Bibliograf\'{\i}a}]
 
 \end{document}
