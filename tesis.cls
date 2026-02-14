@@ -37,9 +37,9 @@
 \setlength{\parskip}{0.5em}
 
 % Título y autor (se redefine en caratula.tex)
-\newcommand{\titulo}{Título de la Tesis}
-\newcommand{\autor}{Nombre del Doctorando}
-\newcommand{\director}{Director/a}
+\newcommand{\titulo}{Es más fácil, pero mucho más fácil, que el tomate sea perita que la pera tomatito}
+\newcommand{\autor}{Peperino Pómoro}
+\newcommand{\director}{Dr. Fabio Alberti}
 \newcommand{\carrera}{Doctor en Ciencias Aplicadas y de la Ingenieria}
 \newcommand{\universidad}{Universidad Nacional de San Martín}
-\newcommand{\fecha}{Febrero 2026}
+\newcommand{\fecha}{Julio 2026}
