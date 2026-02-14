@@ -1,0 +1,57 @@
+% main.tex - Tesis Doctoral UNSAM
+\documentclass[12pt,spanish]{tesis}
+\usepackage{subfiles}
+\setlength{\marginparwidth}{2cm} % Ajuste para todonotes
+\usepackage{todonotes}
+\usepackage{draftwatermark}
+\usepackage{hyperref}
+\usepackage{graphicx}
+\usepackage{fontspec}
+\usepackage{babel}
+\usepackage{csquotes}
+\usepackage{setspace}
+\usepackage{amsmath,amssymb}
+\usepackage{booktabs}
+\usepackage{caption}
+\usepackage{subcaption}
+
+% Configuración general
+\setmainfont{Latin Modern Roman}
+\graphicspath{{img/}}
+% Marca de agua: descomentar para activar
+%\SetWatermarkText{BORRADOR}
+%\SetWatermarkScale{2.5}
+%\SetWatermarkLightness{0.9}
+%\SetWatermarkAngle{45}
+\SetWatermarkText{} % Marca de agua desactivada por defecto
+
+\begin{document}
+
+% Portada
+\input{caratula}
+
+% Dedicatoria y agradecimientos
+\input{dedicatoria}
+\input{agradecimientos}
+
+% Resúmenes
+\input{abs_esp}
+\input{abs_en}
+
+% Índices
+\tableofcontents
+\listoffigures
+\listoftables
+\listoftodos
+
+% Capítulos
+\subfile{chapters/chapter-1}
+\subfile{chapters/chapter-2}
+\subfile{chapters/chapter-3}
+\subfile{chapters/chapter-4}
+\subfile{chapters/chapter-5}
+
+% Bibliografía
+\printbibliography
+
+\end{document}
