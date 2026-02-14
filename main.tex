@@ -3,7 +3,6 @@
 \usepackage{subfiles}
 \setlength{\marginparwidth}{2cm} % Ajuste para todonotes
 \usepackage{todonotes}
-\usepackage{draftwatermark}
 \usepackage{hyperref}
 \usepackage{graphicx}
 \usepackage{fontspec}
@@ -18,14 +17,24 @@
 % Configuración general
 \setmainfont{Latin Modern Roman}
 \graphicspath{{img/}}
-% Marca de agua: descomentar para activar
-%\SetWatermarkText{BORRADOR}
-%\SetWatermarkScale{2.5}
-%\SetWatermarkLightness{0.9}
-%\SetWatermarkAngle{45}
-\SetWatermarkText{} % Marca de agua desactivada por defecto
+% Marca de agua controlada por capítulo y clase
+% Para poner el watermark de DRAFT. 
+% Las macros son para poder poner y sacar en cada capítulo a medida que se vayan terminando
+\usepackage{draftwatermark}
+% Default: no watermark. Chapters can enable it with \draftwatermarkon
+\SetWatermarkText{}
+\SetWatermarkScale{1}
+
+\newcommand{\draftwatermarkon}{%
+	\SetWatermarkText{DRAFT}%
+	\SetWatermarkScale{1}%
+}
+\newcommand{\draftwatermarkoff}{%
+	\SetWatermarkText{}% empty => no watermark
+}
 
 \begin{document}
+\draftwatermarkoff
 
 % Portada
 \input{caratula}

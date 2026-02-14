@@ -1,17 +1,4 @@
-% --- Comandos para activar/desactivar watermark DRAFT ---
-\newif\ifdraftmark
-\draftmarkfalse
-\newcommand{\setdraftmarktrue}{%
-	\draftmarktrue
-	\SetWatermarkText{DRAFT}
-	\SetWatermarkScale{1.2}
-	\SetWatermarkLightness{0.9}
-	\SetWatermarkAngle{45}
-}
-\newcommand{\setdraftmarkfalse}{%
-	\draftmarkfalse
-	\SetWatermarkText{}
-}
+% --- Lógica de watermark eliminada: ahora se define solo en main.tex ---
 % ------------------------------------------------------
 % tesis.cls - Clase personalizada para tesis UNSAM
 \NeedsTeXFormat{LaTeX2e}
@@ -32,7 +19,6 @@
 \RequirePackage{subcaption}
 \RequirePackage{amsmath,amssymb}
 \RequirePackage{todonotes}
-\RequirePackage{draftwatermark}
 \RequirePackage{biblatex}
 
 % Bibliografía
