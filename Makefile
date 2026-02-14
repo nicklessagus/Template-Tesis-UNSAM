@@ -31,11 +31,12 @@ pdf:
 # Compilar capítulo individual: make chapter-1
 chapter-%:
 	$(LATEX) -output-directory=$(CHAPTERS_DIR) -interaction=nonstopmode $(CHAPTERS_DIR)/chapter-$*.tex
-	@if grep -q '\\bibliography' $(CHAPTERS_DIR)/chapter-$*.tex; then \
+	@if grep -q '\bibliography' $(CHAPTERS_DIR)/chapter-$*.tex; then \
 		$(BIB) $(CHAPTERS_DIR)/chapter-$*; \
 		$(LATEX) -output-directory=$(CHAPTERS_DIR) -interaction=nonstopmode $(CHAPTERS_DIR)/chapter-$*.tex; \
 	fi
 	$(LATEX) -output-directory=$(CHAPTERS_DIR) -interaction=nonstopmode $(CHAPTERS_DIR)/chapter-$*.tex
+	@$(MAKE) clean
 
 # Generar lista de TODOs (requiere todonotes)
 todos:
@@ -44,9 +45,12 @@ todos:
 # Limpieza de archivos temporales
 distclean: clean
 	@rm -f $(OUTPUT_PDF)
+	@find $(CHAPTERS_DIR) -type f -name '*.pdf' -delete
 
 clean:
 	@rm -f $(AUX_FILES)
-	@rm -f $(CHAPTERS_DIR)/*.aux $(CHAPTERS_DIR)/*.log $(CHAPTERS_DIR)/*.bbl $(CHAPTERS_DIR)/*.blg $(CHAPTERS_DIR)/*.out $(CHAPTERS_DIR)/*.toc $(CHAPTERS_DIR)/*.lof $(CHAPTERS_DIR)/*.lot $(CHAPTERS_DIR)/*.fls $(CHAPTERS_DIR)/*.fdb_latexmk $(CHAPTERS_DIR)/*.synctex.gz $(CHAPTERS_DIR)/*.nav $(CHAPTERS_DIR)/*.snm $(CHAPTERS_DIR)/*.vrb $(CHAPTERS_DIR)/*.xdv $(CHAPTERS_DIR)/*.run.xml
+	@find $(CHAPTERS_DIR) -type f \( \
+		-name '*.aux' -o -name '*.log' -o -name '*.bbl' -o -name '*.blg' -o -name '*.out' -o -name '*.toc' -o -name '*.lof' -o -name '*.lot' -o -name '*.fls' -o -name '*.fdb_latexmk' -o -name '*.synctex.gz' -o -name '*.nav' -o -name '*.snm' -o -name '*.vrb' -o -name '*.xdv' -o -name '*.run.xml' -o -name '*.bcf' \
+	\) -delete
 
 .PHONY: all pdf clean distclean todos

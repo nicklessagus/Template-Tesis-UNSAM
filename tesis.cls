@@ -1,3 +1,18 @@
+% --- Comandos para activar/desactivar watermark DRAFT ---
+\newif\ifdraftmark
+\draftmarkfalse
+\newcommand{\setdraftmarktrue}{%
+	\draftmarktrue
+	\SetWatermarkText{DRAFT}
+	\SetWatermarkScale{1.2}
+	\SetWatermarkLightness{0.9}
+	\SetWatermarkAngle{45}
+}
+\newcommand{\setdraftmarkfalse}{%
+	\draftmarkfalse
+	\SetWatermarkText{}
+}
+% ------------------------------------------------------
 % tesis.cls - Clase personalizada para tesis UNSAM
 \NeedsTeXFormat{LaTeX2e}
 \ProvidesClass{tesis}[2026/02/14 Tesis Doctoral UNSAM]
