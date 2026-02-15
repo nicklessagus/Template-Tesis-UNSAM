@@ -46,6 +46,9 @@
 	\SetWatermarkText{}%
 }
 
+% Lógica de control centralizado para subfiles
+% (Eliminada por complejidad innecesaria. Se controla manualmente en cada archivo)
+
 % Estilo de capítulos
 \renewcommand{\chaptername}{Capítulo}
 \renewcommand{\contentsname}{Índice general}

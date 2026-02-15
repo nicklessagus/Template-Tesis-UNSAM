@@ -1,22 +1,21 @@
 \documentclass[../main.tex]{subfiles}
 \begin{document}
 \chapter{Conclusiones}
+% Asegurar que el borrador esté apagado para este capítulo
+\draftwatermarkoff
 
-% Refsection para compilación por separado
-\ifdefstring{\jobname}{chapter-5}{%
-	\begin{refsection}
-}{ }
+% Use a refsection only when compiling the chapter standalone
+\ifSubfilesClassLoaded{%
+	\begin{refsection}%
+}{}%
 
 Texto de ejemplo para el capítulo 5.
 
-% Imprimir bibliografía local si es standalone
-\ifdefstring{\jobname}{chapter-5}{%
-	\printbibliography[title={Bibliograf\'ia}]
-	\end{refsection}
-}{ }
-
-% --- Fin de la marca de agua de draft para este capítulo ---
-% -----------------------------------------------
+% Al compilar el capítulo por separado, imprimimos la bibliografía local
+\ifSubfilesClassLoaded{%
+	\printbibliography[title={Bibliografía del Capítulo}]%
+	\end{refsection}%
+}{}%
 \end{document}
 
 % --- Fin de la marca de agua de draft para este capítulo ---

@@ -6,8 +6,12 @@
 \setmainfont{Latin Modern Roman}
 \graphicspath{{img/}}
 
+% Control global de marca de agua (descomentar para activar en toda la tesis)
+% \draftwatermarkon
+
 \begin{document}
-\draftwatermarkoff
+
+% Portada
 
 % Portada
 \input{caratula}
@@ -26,26 +30,15 @@
 \listoftables
 \listoftodos
 
-% Capítulos (control centralizado del watermark desde main.tex)
-% Ejemplo: activar watermark para el capítulo 1 y apagar para el resto
-% Use per-chapter control files so a single file controls both
-% compilación individual y compilación general.
-\clearpage
-% Control centralizado de watermark: activar antes del capítulo 1
-\draftwatermarkon
+% Capítulos
 \subfile{chapters/chapter-1}
 \clearpage
-% Apagar a partir del capítulo 2
-\draftwatermarkoff
 \subfile{chapters/chapter-2}
 \clearpage
-\draftwatermarkoff
 \subfile{chapters/chapter-3}
 \clearpage
-\draftwatermarkoff
 \subfile{chapters/chapter-4}
 \clearpage
-\draftwatermarkoff
 \subfile{chapters/chapter-5}
 
 % Bibliografía

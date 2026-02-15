@@ -1,13 +1,15 @@
 \documentclass[../main.tex]{subfiles}
 \begin{document}
 \chapter{Introducción}
+% Borrador solo en este capítulo (activar DESPUÉS del chapter para asegurar página correcta)
+\draftwatermarkon
 
 \todo{Completar la introducción}
 
-% Use a refsection only when compiling the chapter standalone (guard by jobname)
-\ifdefstring{\jobname}{chapter-1}{%
-	\begin{refsection}
-}{ }
+% Use a refsection only when compiling the chapter standalone
+\ifSubfilesClassLoaded{%
+	\begin{refsection}%
+}{}%
 
 Texto de ejemplo para el capítulo 1, incluyendo una cita de ejemplo \cite{latexcompanion}.
 
@@ -15,8 +17,8 @@ Texto de ejemplo para el capítulo 1, incluyendo una cita de ejemplo \cite{latex
 \missingfigure{Agregar figura de motivación}
 
 % Al compilar el capítulo por separado, imprimimos la bibliografía local
-\ifdefstring{\jobname}{chapter-1}{%
-	\printbibliography[title={Bibliograf\'ia}]
-	\end{refsection}
-}{ }
+\ifSubfilesClassLoaded{%
+	\printbibliography[title={Bibliografía del Capítulo}]%
+	\end{refsection}%
+}{}%
 \end{document}

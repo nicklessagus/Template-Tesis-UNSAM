@@ -1,18 +1,19 @@
 \documentclass[../main.tex]{subfiles}
 \begin{document}
 \chapter{Metodología}
+% Borrador solo en este capítulo (activar DESPUÉS del chapter para asegurar página correcta)
+\draftwatermarkon
 
-% Refsection para compilación por separado
-\ifdefstring{\jobname}{chapter-3}{%
-	\begin{refsection}
-}{ }
+% Use a refsection only when compiling the chapter standalone
+\ifSubfilesClassLoaded{%
+	\begin{refsection}%
+}{}%
 
 Texto de ejemplo para el capítulo 3.
 
-% Imprimir bibliografía local si es standalone
-\ifdefstring{\jobname}{chapter-3}{%
-	\printbibliography[title={Bibliograf\'ia}]
-	\end{refsection}
-}{ }
-
+% Al compilar el capítulo por separado, imprimimos la bibliografía local
+\ifSubfilesClassLoaded{%
+	\printbibliography[title={Bibliografía del Capítulo}]%
+	\end{refsection}%
+}{}%
 \end{document}
