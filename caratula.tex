@@ -1,22 +1,22 @@
 % caratula.tex - Portada UNSAM
 \begin{titlepage}
     \centering
-    \rule{0.95\textwidth}{1pt}\\[0.5cm]
-    {\Huge\textbf{\MakeUppercase{\titulo}}}\\[0.5cm]
-    \rule{0.95\textwidth}{1pt}\\[1.7cm]
-    {\LARGE\textbf{\autor}}\\[2cm]
-    {\Large Tesis para optar al título de}
-    \\[0.5cm]
-    {\Large\textbf{\carrera}}
-    \\[0.7cm]
-    {\large Escuela de Ciencia y Tecnología}\\[0.2cm]
-    {\large Universidad Nacional de San Martín}
-    \\[1.2cm]
-    \includegraphics[width=0.11\textwidth]{img/logo_UNSAM.png}
-    \\[2cm]
-    {\large \textbf{Director/a:} \textbf{\director}}
-    \\[2cm]
-    {\large \fecha}
-    \\[2cm]
+    \rule{0.95\textwidth}{1pt}\\[0.8cm]
+    {\LARGE\setstretch{1.3}\textbf{\MakeUppercase{\thetitulo}}\par}\vspace{0.8cm}
+    \rule{0.95\textwidth}{1pt}\\[1.5cm]
+    {\Large\textbf{\theautor}}\\[1.5cm]
+    {\large Tesis para optar al título de}
+    \\[0.4cm]
+    {\large\textbf{\thecarrera}}
+    \\[0.6cm]
+    {Escuela de Ciencia y Tecnología}\\[0.1cm]
+    {\theuniversidad}
+    \\[1cm]
+    \includegraphics[width=0.1\textwidth]{img/logo_UNSAM.png}
+    \\[1.5cm]
+    {\textbf{Director/a:} \textbf{\thedirector}}
+    \\[1.5cm]
+    {\thefecha}
+    \\[1.5cm]
     \vfill
 \end{titlepage}

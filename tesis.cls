@@ -62,10 +62,18 @@
 \setlength{\parindent}{1.5em}
 \setlength{\parskip}{0.5em}
 
-% Título y autor (se redefine en caratula.tex)
-\newcommand{\titulo}{Es más fácil, pero mucho más fácil, que el tomate sea perita que la pera tomatito}
-\newcommand{\autor}{Peperino Pómoro}
-\newcommand{\director}{Dr. Fabio Alberti}
-\newcommand{\carrera}{Doctor en Ciencias Aplicadas y de la Ingenieria}
-\newcommand{\universidad}{Universidad Nacional de San Martín}
-\newcommand{\fecha}{Julio 2026}
+% --- Comandos para definir los datos de la tesis ---
+\newcommand{\titulo}[1]{\def\thetitulo{#1}}
+\newcommand{\autor}[1]{\def\theautor{#1}}
+\newcommand{\director}[1]{\def\thedirector{#1}}
+\newcommand{\carrera}[1]{\def\thecarrera{#1}}
+\newcommand{\universidad}[1]{\def\theuniversidad{#1}}
+\newcommand{\fecha}[1]{\def\thefecha{#1}}
+
+% --- Valores por defecto (se pisan en main.tex) ---
+\titulo{Es más facil que el tomate sea perita, que la pera tomatito}
+\autor{Peperino Pómoro}
+\director{Dr. Fabio Alberti}
+\carrera{Doctor en Ciencias Aplicadas y de la Ingenieria}
+\universidad{Universidad Nacional de San Martín}
+\fecha{\today}
