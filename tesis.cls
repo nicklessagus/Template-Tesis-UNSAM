@@ -8,7 +8,7 @@
 % Paquetes recomendados
 \RequirePackage{geometry}
 \geometry{a4paper, left=3cm, right=2cm, top=3cm, bottom=2.5cm}
-\RequirePackage{babel}
+\RequirePackage[spanish, es-tabla]{babel}
 \RequirePackage{fontspec}
 \RequirePackage{setspace}
 \RequirePackage{hyperref}
@@ -22,6 +22,8 @@
 \RequirePackage{lipsum}
 \setlength{\marginparwidth}{2cm} % Ajuste para todonotes
 \RequirePackage[backend=biber]{biblatex}
+\addbibresource{bibliography.bib}
+
 \RequirePackage{fancyhdr}
 \RequirePackage{xcolor}
 
