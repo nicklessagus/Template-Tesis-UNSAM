@@ -1,48 +1,10 @@
 % main.tex - Tesis Doctoral UNSAM
 \documentclass[12pt,spanish]{tesis}
 \usepackage{subfiles}
-\setlength{\marginparwidth}{2cm} % Ajuste para todonotes
-\usepackage{todonotes}
-\usepackage{hyperref}
-\usepackage{graphicx}
-\usepackage{fontspec}
-\usepackage{babel}
-\usepackage{csquotes}
-\usepackage{setspace}
-\usepackage{amsmath,amssymb}
-\usepackage{booktabs}
-\usepackage{caption}
-\usepackage{subcaption}
 
-% Hyperref colors: use colored links (no red boxes)
-\hypersetup{
-	colorlinks=true,
-	linkcolor=blue,
-	citecolor=blue,
-	urlcolor=blue
-}
-
-% Configuración general
+% Configuración de fuentes y gráficos
 \setmainfont{Latin Modern Roman}
 \graphicspath{{img/}}
-% Marca de agua controlada por capítulo y clase
-% Para poner el watermark de DRAFT. 
-% Las macros son para poder poner y sacar en cada capítulo a medida que se vayan terminando
-\usepackage{draftwatermark}
-% Default: no watermark. Chapters can enable it with \draftwatermarkon
-\SetWatermarkText{}
-\SetWatermarkScale{1}
-
-\newcommand{\draftwatermarkon}{%
-	\SetWatermarkText{DRAFT}%
-	\SetWatermarkScale{1}%
-	\gdef\draftwatermark@text{DRAFT}%
-	\gdef\draftwatermark@scale{1}%
-}
-\newcommand{\draftwatermarkoff}{%
-	\SetWatermarkText{}% empty => no watermark
-	\gdef\draftwatermark@text{}
-}
 
 \begin{document}
 \draftwatermarkoff

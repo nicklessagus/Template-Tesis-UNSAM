@@ -1,0 +1,52 @@
+# Archivos temporales de LaTeX
+*.aux
+*.bbl
+*.bcf
+*.blg
+*.fdb_latexmk
+*.fls
+*.log
+*.lot
+*.lof
+*.nav
+*.out
+*.run.xml
+*.snm
+*.synctex.gz
+*.toc
+*.vrb
+*.xdv
+*.tdo
+
+# Archivos PDF generados
+*.pdf
+
+# Archivos temporales de capítulos
+chapters/*.aux
+chapters/*.bbl
+chapters/*.blg
+chapters/*.log
+chapters/*.out
+chapters/*.toc
+chapters/*.lof
+chapters/*.lot
+chapters/*.fls
+chapters/*.fdb_latexmk
+chapters/*.synctex.gz
+chapters/*.nav
+chapters/*.snm
+chapters/*.vrb
+chapters/*.xdv
+chapters/*.run.xml
+chapters/*.tdo
+chapters/*.bcf
+
+# Archivos de respaldo
+*~
+*.bak
+*.swp
+*.swo
+
+# Otros
+main.pdf
+tesis.pdf

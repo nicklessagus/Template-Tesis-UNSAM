@@ -19,10 +19,32 @@
 \RequirePackage{subcaption}
 \RequirePackage{amsmath,amssymb}
 \RequirePackage{todonotes}
+\setlength{\marginparwidth}{2cm} % Ajuste para todonotes
 \RequirePackage[backend=biber]{biblatex}
 
 % Bibliografía
 \addbibresource{bibliography.bib}
+
+% Hyperref config (colores en vez de recuadros)
+\hypersetup{
+	colorlinks=true,
+	linkcolor=blue,
+	citecolor=blue,
+	urlcolor=blue
+}
+
+% Marca de agua (Watermark)
+\RequirePackage{draftwatermark}
+\SetWatermarkText{} % Default: vacío
+\SetWatermarkScale{1}
+
+\newcommand{\draftwatermarkon}{%
+	\SetWatermarkText{DRAFT}%
+	\SetWatermarkScale{1}%
+}
+\newcommand{\draftwatermarkoff}{%
+	\SetWatermarkText{}%
+}
 
 % Estilo de capítulos
 \renewcommand{\chaptername}{Capítulo}
