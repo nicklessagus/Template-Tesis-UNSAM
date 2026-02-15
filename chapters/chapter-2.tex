@@ -2,10 +2,20 @@
 \begin{document}
 \chapter{Marco Teórico}
 
-\todo{Agregar referencias clave}
+	\todo{Agregar referencias clave}
+
+% Refsection para compilación por separado
+\ifdefstring{\jobname}{chapter-2}{%
+	\begin{refsection}
+}{ }
 
 Texto de ejemplo para el capítulo 2.
 
+% Imprimir bibliografía local si es standalone
+\ifdefstring{\jobname}{chapter-2}{%
+	\printbibliography[title={Bibliograf\'ia}]
+	\end{refsection}
+}{ }
 
 \end{document}
 

@@ -2,9 +2,17 @@
 \begin{document}
 \chapter{Metodología}
 
+% Refsection para compilación por separado
+\ifdefstring{\jobname}{chapter-3}{%
+	\begin{refsection}
+}{ }
+
 Texto de ejemplo para el capítulo 3.
-% --- Fin de la marca de agua de draft para este capítulo ---
-% -----------------------------------------------
+
+% Imprimir bibliografía local si es standalone
+\ifdefstring{\jobname}{chapter-3}{%
+	\printbibliography[title={Bibliograf\'ia}]
+	\end{refsection}
+}{ }
+
 \end{document}
-% --- Fin de la marca de agua de draft para este capítulo ---
-% -----------------------------------------------

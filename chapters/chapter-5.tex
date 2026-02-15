@@ -2,7 +2,19 @@
 \begin{document}
 \chapter{Conclusiones}
 
+% Refsection para compilación por separado
+\ifdefstring{\jobname}{chapter-5}{%
+	\begin{refsection}
+}{ }
+
 Texto de ejemplo para el capítulo 5.
+
+% Imprimir bibliografía local si es standalone
+\ifdefstring{\jobname}{chapter-5}{%
+	\printbibliography[title={Bibliograf\'ia}]
+	\end{refsection}
+}{ }
+
 % --- Fin de la marca de agua de draft para este capítulo ---
 % -----------------------------------------------
 \end{document}

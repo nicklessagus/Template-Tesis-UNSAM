@@ -1,6 +1,4 @@
 \documentclass[../main.tex]{subfiles}
-% debug: print jobname during compilation
-\typeout{JOBNAME=>\jobname<-}
 \begin{document}
 \chapter{Introducción}
 
@@ -9,7 +7,7 @@
 % Use a refsection only when compiling the chapter standalone (guard by jobname)
 \ifdefstring{\jobname}{chapter-1}{%
 	\begin{refsection}
-}{}
+}{ }
 
 Texto de ejemplo para el capítulo 1, incluyendo una cita de ejemplo \cite{latexcompanion}.
 
@@ -20,5 +18,5 @@ Texto de ejemplo para el capítulo 1, incluyendo una cita de ejemplo \cite{latex
 \ifdefstring{\jobname}{chapter-1}{%
 	\printbibliography[title={Bibliograf\'ia}]
 	\end{refsection}
-}{}
+}{ }
 \end{document}
