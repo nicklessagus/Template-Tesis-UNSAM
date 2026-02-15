@@ -19,18 +19,36 @@
 \RequirePackage{subcaption}
 \RequirePackage{amsmath,amssymb}
 \RequirePackage{todonotes}
+\RequirePackage{lipsum}
 \setlength{\marginparwidth}{2cm} % Ajuste para todonotes
 \RequirePackage[backend=biber]{biblatex}
+\RequirePackage{fancyhdr}
+\RequirePackage{xcolor}
 
-% Bibliografía
-\addbibresource{bibliography.bib}
+% Definición de color para links (CMYK 50, 30, 10, 0)
+\definecolor{colorUNSAM}{cmyk}{0.50, 0.30, 0.10, 0}
+
+% Configuración de encabezados y pies de página
+\pagestyle{fancy}
+\fancyhf{} % Limpiar encabezados y pies
+\renewcommand{\chaptermark}[1]{\markboth{#1}{}} % Quitar el número del capítulo en el encabezado
+\fancyhead[L]{\nouppercase{\leftmark}} % Nombre del capítulo a la izquierda
+\fancyhead[R]{\thepage} % Número de página a la derecha
+\setlength{\headheight}{15pt} % Ajuste para evitar warnings de fancyhdr
+
+% Estilo de página para inicios de capítulo (plain)
+\fancypagestyle{plain}{
+  \fancyhf{}
+  \fancyfoot[C]{\thepage} % Número de página al centro en el pie
+  \renewcommand{\headrulewidth}{0pt}
+}
 
 % Hyperref config (colores en vez de recuadros)
 \hypersetup{
 	colorlinks=true,
-	linkcolor=blue,
-	citecolor=blue,
-	urlcolor=blue
+	linkcolor=colorUNSAM,
+	citecolor=colorUNSAM,
+	urlcolor=colorUNSAM
 }
 
 % Marca de agua (Watermark)
