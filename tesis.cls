@@ -8,7 +8,9 @@
 % Paquetes recomendados
 \RequirePackage{geometry}
 \geometry{a4paper, left=3cm, right=2cm, top=3cm, bottom=2.5cm}
-\RequirePackage[spanish, es-tabla]{babel}
+\RequirePackage{polyglossia}
+\setmainlanguage{spanish}
+%\RequirePackage[spanish, es-tabla]{babel}
 \RequirePackage{fontspec}
 \RequirePackage{setspace}
 \RequirePackage{hyperref}
