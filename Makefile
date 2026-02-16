@@ -32,16 +32,15 @@ pdf:
 
 # Compilar capítulo individual: make chapter-1
 chapter-%:
-	cd $(CHAPTERS_DIR)
-	$(LATEX) -interaction=nonstopmode chapter-$*.tex
-	if [ -f "chapter-$*.bcf" ]; then
-		$(BIB) --input-directory=.. chapter-$*
-	fi
-	$(LATEX) -interaction=nonstopmode chapter-$*.tex
-	$(LATEX) -interaction=nonstopmode chapter-$*.tex
-	if [ -f "chapter-$*.pdf" ]; then
-		# remove temporals for this chapter (keep .tex and .pdf) — operate in current dir
-		find . -maxdepth 1 -type f \( -name "chapter-$*.aux" -o -name "chapter-$*.log" -o -name "chapter-$*.bbl" -o -name "chapter-$*.bcf" -o -name "chapter-$*.blg" -o -name "chapter-$*.out" -o -name "chapter-$*.run.xml" -o -name "chapter-$*.synctex.gz" -o -name "chapter-$*.synctex" -o -name "chapter-$*.synctex(busy)" -o -name "chapter-$*.xdv" -o -name "chapter-$*.fdb_latexmk" -o -name "chapter-$*.fls" -o -name "chapter-$*.nav" -o -name "chapter-$*.snm" -o -name "chapter-$*.vrb" \) -delete
+	cd $(CHAPTERS_DIR) && \
+	TEXINPUTS=..:$(TEXINPUTS) $(LATEX) -interaction=nonstopmode chapter-$*.tex && \
+	if [ -f "chapter-$*.bcf" ]; then \
+		BIBINPUTS=..:$(BIBINPUTS) $(BIB) chapter-$*; \
+	fi && \
+	TEXINPUTS=..:$(TEXINPUTS) $(LATEX) -interaction=nonstopmode chapter-$*.tex && \
+	TEXINPUTS=..:$(TEXINPUTS) $(LATEX) -interaction=nonstopmode chapter-$*.tex && \
+	if [ -f "chapter-$*.pdf" ]; then \
+		find . -maxdepth 1 -type f \( -name "chapter-$*.aux" -o -name "chapter-$*.log" -o -name "chapter-$*.bbl" -o -name "chapter-$*.bcf" -o -name "chapter-$*.blg" -o -name "chapter-$*.out" -o -name "chapter-$*.run.xml" -o -name "chapter-$*.synctex.gz" -o -name "chapter-$*.synctex" -o -name "chapter-$*.synctex(busy)" -o -name "chapter-$*.xdv" -o -name "chapter-$*.fdb_latexmk" -o -name "chapter-$*.fls" -o -name "chapter-$*.nav" -o -name "chapter-$*.snm" -o -name "chapter-$*.vrb" \) -delete; \
 	fi
 
 # Generar lista de TODOs (requiere todonotes)
