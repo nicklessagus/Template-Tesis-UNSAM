@@ -11,7 +11,7 @@
 \RequirePackage{polyglossia}
 \setmainlanguage{spanish}
 %\RequirePackage[spanish, es-tabla]{babel}
-\RequirePackage{fontspec}
+\RequirePackage{fontspec} 
 \RequirePackage{setspace}
 \RequirePackage{hyperref}
 \RequirePackage{csquotes}
@@ -23,7 +23,7 @@
 \RequirePackage{todonotes}
 \RequirePackage{lipsum}
 \setlength{\marginparwidth}{2cm} % Ajuste para todonotes
-\RequirePackage[backend=biber]{biblatex}
+\RequirePackage[backend=biber,natbib=true]{biblatex}
 \addbibresource{bibliography.bib}
 
 \RequirePackage{fancyhdr}
@@ -93,9 +93,9 @@
 \newcommand{\fecha}[1]{\def\thefecha{#1}}
 
 % --- Valores por defecto (se pisan en main.tex) ---
-\titulo{Es más facil que el tomate sea perita, que la pera tomatito}
-\autor{Peperino Pómoro}
-\director{Dr. Fabio Alberti}
-\carrera{Doctor en Ciencias Aplicadas y de la Ingenieria}
+\titulo{Título de la Tesis}
+\autor{Nombre del Autor}
+\director{Nombre del Director}
+\carrera{Carrera de la Tesis}
 \universidad{Universidad Nacional de San Martín}
 \fecha{\today}
