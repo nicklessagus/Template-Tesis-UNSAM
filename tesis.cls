@@ -23,7 +23,15 @@
 \RequirePackage{todonotes}
 \RequirePackage{lipsum}
 \setlength{\marginparwidth}{2cm} % Ajuste para todonotes
-\RequirePackage[backend=biber,natbib=true]{biblatex}
+\RequirePackage[
+  backend=biber,
+  style=authoryear,      % ESTILO: Autor-Año (estándar en astrofísica)
+  maxcitenames=2,        % Si hay >2 autores, usa "et al." en el texto
+  maxbibnames=99,        % Lista todos los autores en la bibliografía final
+  uniquelist=false,      % Evita añadir iniciales en las citas para desambiguar
+  giveninits=true,       % Iniciales para los nombres en lugar de nombre completo
+  natbib=true            % Permite comandos \citet y \citep
+]{biblatex}
 \addbibresource{bibliography.bib}
 
 \RequirePackage{fancyhdr}
