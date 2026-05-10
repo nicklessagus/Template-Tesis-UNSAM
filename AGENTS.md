@@ -94,11 +94,47 @@ Como decisión operativa para la determinación del número de componentes laten
 - **Limitaciones evidentes**: Si el código depende de un _snippet_ muy subóptimo o no implementa una asunción teórica fundamental de tu modelo de la tesis (e.g., asume ruido blanco unicolor cuando se definió antes ruido acoplado), debe alertar: "Limitación metodológica del script: El código no provee validación auto-regresiva temporal de las asunciones..."
 - Si la implementación computacional no tiene paralelismo o aproxima inversas de modo brusco, dejarlo redactado con sobriedad académica.
 
-## Instrucciones de Compilación (Makefile)
-Cuando necesites compilar el documento LaTeX para validar los cambios o cuando el usuario te lo solicite, utiliza los siguientes comandos a través del Makefile provisto:
+## Estructura del Repositorio
 
-- **Toda la tesis**: `make` o `make pdf`. Compila `main.tex`, procesa la bibliografía (`biber`), limpia archivos temporales y genera `tesis.pdf`.
-- **Capítulo individual**: `make chapter-X` (ej. `make chapter-1`). Compila exclusivamente un capítulo de la carpeta `chapters/`, incluyendo referencias y formato general.
-- **Generar ToDos**: `make todos`. Compila e imprime el listado de las notas `\todo{}` agregadas en el código a lo largo de la tesis.
-- **Limpieza**: `make clean` (limpia archivos `.aux`, `.log`, etc.) o `make distclean` (además de los intermedios, elimina todos los `.pdf` generados).
-- Nunca invoques `xelatex` directamente. Usa el entorno `make` para garantizar que los ciclos de compilación y limpieza ocurran de forma automatizada (las flag `-interaction=nonstopmode` ya están incluidas).
+```
+.
+├── main.tex                # Documento maestro, ensambla la tesis con \subfile
+├── tesis.cls               # Clase propia (report 12pt A4, polyglossia, biblatex, watermark)
+├── Makefile                # Targets de compilación (ver sección siguiente)
+├── bibliography.bib        # Base BibTeX única para toda la tesis
+│
+├── caratula.tex            # Preliminares (en raíz, no en chapters/)
+├── dedicatoria.tex
+├── agradecimientos.tex
+├── abs_esp.tex             # Resumen en español
+├── abs_en.tex              # Abstract en inglés
+│
+├── chapters/
+│   ├── chapter-1.tex       # Un archivo por capítulo
+│   ├── chapter-2.tex
+│   └── ...
+│
+├── img/                    # Figuras. \graphicspath{{img/}} en main.tex
+└── AGENTS.md               # Este archivo
+```
+
+**Mecanismo de ensamblado (`subfiles`):**
+
+- `main.tex` incluye cada capítulo con `\subfile{chapters/chapter-N}`.
+- Cada `chapter-N.tex` arranca con `\documentclass[../main.tex]{subfiles}` y un guard `\ifSubfilesClassLoaded{ \begin{refsection} }{}` para tener bibliografía local cuando se compila standalone.
+- Los capítulos posteriores al primero hacen `\setcounter{chapter}{N-1}` bajo el mismo guard, para preservar la numeración al compilar solos.
+- La marca de agua `DRAFT` se activa por capítulo con `\draftwatermarkon` (después del `\chapter{}`) y se apaga globalmente desde `main.tex` con `\draftwatermarkoff`, o se controla globalmente desde `main.tex` descomentando `\draftwatermarkon`.
+
+## Instrucciones de Compilación (Makefile)
+
+Para compilar el documento LaTeX, validar cambios o cuando el usuario lo solicite, usar los siguientes targets del Makefile provisto:
+
+| Target | Acción |
+|---|---|
+| `make` / `make pdf` | Compila la tesis completa (xelatex → biber → xelatex × 2), mueve a `tesis.pdf` y limpia auxiliares |
+| `make chapter-N` | Compila `chapters/chapter-N.tex` standalone con `TEXINPUTS=..`, deja `chapters/chapter-N.pdf` |
+| `make todos` | Genera la lista de `\todo{}` pendientes |
+| `make clean` | Borra archivos auxiliares (`.aux`, `.log`, `.bbl`, `.bcf`, etc.) |
+| `make distclean` | `clean` + borra el PDF final y los PDFs por capítulo |
+
+Compilador: `xelatex` + `biber`. No invocarlos directamente; el Makefile ya incluye las flags `-interaction=nonstopmode` y resuelve la cadena de compilación.

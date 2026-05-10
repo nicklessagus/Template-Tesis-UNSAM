@@ -22,7 +22,7 @@ Este template está diseñado para tesis de Doctorado en Ciencias Aplicadas y de
 - `AGENTS.md`: Prompt y reglas conductuales base para uso de agentes AI durante la escritura.
 
 ## Compilación con Makefile
-Para tu comodidad, el proyecto incluye un `Makefile` listo para ejecutarse tanto de forma manual como a través de agentes IA.
+Por comodidad, el proyecto incluye un `Makefile` listo para ejecutarse tanto de forma manual como a través de agentes IA.
 
 - `make` o `make pdf`: Compila el proyecto entero (`main.tex`), resuelve bibliografía iterando las veces necesarias, traslada el output a `tesis.pdf` y limpia el directorio de remanentes (`.log`, `.aux`, etc.).
 - `make chapter-1` (o 2, 3, etc.): Compila localmente dentro de `chapters/` el capítulo en particular, manteniendo los estilos y resolviendo su propia bibliografía. Ideal para tiempos de iteración rápidos en LaTeX.
@@ -38,6 +38,6 @@ Para tu comodidad, el proyecto incluye un `Makefile` listo para ejecutarse tanto
 
 ## Personalización Rápida
 - **Carátula e Información**: Editar el comando de variables propias de la tesis (`\titulo`, `\autor`, `\director`, `\institucion`) al comienzo de `main.tex`.
-- **Marca de agua**: En `main.tex`, descomenta la línea de `\draftwatermarkon` para activar en toda la tesis el texto cruzado "BORRADOR". Si compilas un capítulo modular y quieres marca de agua, debes pasar temporalmente este comando al interior de ese capítulo puntual.
-- **Formato avanzado**: Editar `tesis.cls` si necesitas alterar jerarquías de TOC, modificar la inter-línea o reajustar los escudos de la universidad.
-- **Flujo con LLMs**: Recuerda modificar en `AGENTS.md` el título central y la jerga esperada, para adecuar el asistente IA a tu campo científico.
+- **Marca de agua**: En `main.tex`, descomentar la línea de `\draftwatermarkon` para activar en toda la tesis el texto cruzado "DRAFT". Si se compila un capítulo modular y se desea marca de agua, conviene pasar temporalmente este comando al interior de ese capítulo.
+- **Formato avanzado**: Editar `tesis.cls` si se necesita alterar jerarquías de TOC, modificar la inter-línea o reajustar los escudos de la universidad.
+- **Flujo con LLMs**: Conviene modificar en `AGENTS.md` el título central y la jerga esperada, para adecuar el asistente IA al campo científico correspondiente.

@@ -25,7 +25,7 @@
 \setlength{\marginparwidth}{2cm} % Ajuste para todonotes
 \RequirePackage[
   backend=biber,
-  style=authoryear,      % ESTILO: Autor-Año (estándar en astrofísica)
+  style=authoryear,      % ESTILO: Autor-Año (ejemplo, común en ciencias naturales). Modificar según la disciplina.
   maxcitenames=2,        % Si hay >2 autores, usa "et al." en el texto
   maxbibnames=99,        % Lista todos los autores en la bibliografía final
   uniquelist=false,      % Evita añadir iniciales en las citas para desambiguar

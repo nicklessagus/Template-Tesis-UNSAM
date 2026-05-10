@@ -49,4 +49,6 @@ chapters/*.bcf
 
 # Otros
 main.pdf
-tesis.pdf
+
+# Excepción: el PDF de ejemplo del template se trackea
+!tesis.pdf
