@@ -36,6 +36,15 @@ Por comodidad, el proyecto incluye un `Makefile` listo para ejecutarse tanto de 
   - `biber`
 - Paquetes esenciales incluidos en el `.cls`: `subfiles`, `todonotes`, `draftwatermark`, `hyperref`, `babel` (spanish), `fontspec`, entre otros habituales.
 
+## TODOs y notas (`todonotes`)
+
+El paquete `todonotes` está cargado por defecto en `tesis.cls`. Variantes habituales:
+
+- `\todo{texto}` — nota al margen (útil para recordatorios cortos sobre una palabra o una frase puntual).
+- `\todo[inline]{texto}` — bloque destacado dentro del cuerpo del texto, ideal para placeholders de párrafos o secciones enteras todavía no escritas.
+- `\missingfigure{descripción}` — caja gris con un ícono de imagen pendiente; útil mientras no se tenga la figura final.
+- `\listoftodos` — listado de todos los TODOs del documento (lo usa `make todos` para generar un PDF rápido con la lista de pendientes).
+
 ## Personalización Rápida
 - **Carátula e Información**: Editar el comando de variables propias de la tesis (`\titulo`, `\autor`, `\director`, `\institucion`) al comienzo de `main.tex`.
 - **Marca de agua**: En `main.tex`, descomentar la línea de `\draftwatermarkon` para activar en toda la tesis el texto cruzado "DRAFT". Si se compila un capítulo modular y se desea marca de agua, conviene pasar temporalmente este comando al interior de ese capítulo.
