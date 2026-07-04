@@ -1,0 +1,15 @@
+{
+  "_comentario": "Configuracion por proyecto de make check. whitelist_refs: labels referenciados que todavia no existen (placeholders conscientes). check_decimal_comma: false si tu disciplina usa punto decimal. warn_patterns: regex propios del proyecto (terminologia, grafias, frases vetadas); los dos de abajo son ejemplos, reemplazar por los del proyecto.",
+  "whitelist_refs": [],
+  "check_decimal_comma": true,
+  "warn_patterns": [
+    {
+      "pattern": "\\bes crucial\\b|\\bes fundamental\\b|[Cc]abe destacar|[Cc]abe mencionar|[Ee]s importante notar",
+      "message": "frase cliche de IA / relleno academico"
+    },
+    {
+      "pattern": "\\bperformance\\b",
+      "message": "anglicismo: preferir 'rendimiento' (ejemplo de patron propio del proyecto; editar o borrar)"
+    }
+  ]
+}

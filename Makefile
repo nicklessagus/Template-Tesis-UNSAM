@@ -43,6 +43,11 @@ chapter-%:
 		find . -maxdepth 1 -type f \( -name "chapter-$*.aux" -o -name "chapter-$*.log" -o -name "chapter-$*.bbl" -o -name "chapter-$*.bcf" -o -name "chapter-$*.blg" -o -name "chapter-$*.out" -o -name "chapter-$*.run.xml" -o -name "chapter-$*.synctex.gz" -o -name "chapter-$*.synctex" -o -name "chapter-$*.synctex(busy)" -o -name "chapter-$*.xdv" -o -name "chapter-$*.fdb_latexmk" -o -name "chapter-$*.fls" -o -name "chapter-$*.nav" -o -name "chapter-$*.snm" -o -name "chapter-$*.vrb" \) -delete; \
 	fi
 
+# Chequeos mecánicos sin compilar (refs, labels, citas, estilo greppable).
+# Extensible por proyecto vía scripts/check_config.json (ver docstring del script).
+check:
+	@python3 scripts/check_tesis.py
+
 # Generar lista de TODOs (requiere todonotes)
 todos:
 	$(LATEX) -interaction=nonstopmode "\\listoftodos\\end{document}" > /dev/null
@@ -60,4 +65,4 @@ clean:
 		-name '*.aux' -o -name '*.log' -o -name '*.blg' -o -name '*.out' -o -name '*.toc' -o -name '*.lof' -o -name '*.lot' -o -name '*.fls' -o -name '*.fdb_latexmk' -o -name '*.synctex.gz' -o -name '*.nav' -o -name '*.snm' -o -name '*.vrb' -o -name '*.xdv' -o -name '*.run.xml' \
 	\) -delete
 
-.PHONY: all pdf clean distclean todos
+.PHONY: all pdf clean distclean todos check

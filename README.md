@@ -11,6 +11,8 @@ Este template está diseñado para tesis de Doctorado en Ciencias Aplicadas y de
 - Bibliografía centralizada (`bibliography.bib`) mediante `biblatex` (con soporte para comandos natbib).
 - Clase personalizada (`tesis.cls`) estandarizando el formato UNSAM.
 - Soporte completo para español y fuentes modernas a través del motor `XeLaTeX`.
+- Chequeos mecánicos instantáneos sin compilar (`make check`): referencias rotas, labels duplicados, citas sin entrada en el `.bib` y estilo, extensibles por proyecto vía `scripts/check_config.json`.
+- Skill `/biblio-check` para Claude Code (`.claude/skills/`): validación de los metadatos de `bibliography.bib` contra fuentes externas (ADS/CrossRef).
 - Instrucciones pre diseñadas para agentes de inteligencia artificial (Copilot, Windsurf, Cursor) enfocadas en redacción académica puramente formal integradas en `AGENTS.md`.
 
 ## Estructura sugerida
@@ -29,6 +31,20 @@ Por comodidad, el proyecto incluye un `Makefile` listo para ejecutarse tanto de 
 - `make todos`: Genera un PDF rápido unicamente priorizando el renderizado de la lista de tareas `\listoftodos` (si están habilitadas y comentadas con la macro de `todonotes`).
 - `make clean`: Limpia todos los archivos intermedios ensuciando la raíz y capítúlos.
 - `make distclean`: Realiza idéntico a clean, pero además borra los PDFs finales (`tesis.pdf` y los de la carpeta de capítulos).
+- `make check`: Chequeos mecánicos instantáneos sin compilar (requiere Python 3). Ver sección siguiente.
+
+## Chequeos mecánicos (`make check`)
+
+`scripts/check_tesis.py` valida en un segundo lo que un grep determinístico puede validar, sin gastar una compilación:
+
+- **Errores** (exit 1): `\ref` a labels inexistentes, labels duplicados, citas sin entrada en `bibliography.bib`, `\label` dentro de un display sin numerar `\[...\]` (bug silencioso: la referencia imprime el número de sección), `\setcounter{chapter}` inconsistente con el número de archivo, `\includegraphics` sin archivo en `img/`.
+- **Avisos** (no fallan): em-dashes, decimales con punto en math mode, `\citep` usado como sujeto de la oración, prefijo `img/` redundante.
+
+Los comentarios `%` se ignoran siempre y el contenido de `\todo{}` se excluye de los avisos de estilo. **Para extender los chequeos al vocabulario de cada tesis** (terminología, grafías, frases vetadas) alcanza con agregar pares regex/mensaje en `scripts/check_config.json`, sin tocar el script; el mismo archivo permite whitelistear referencias rotas conscientes (placeholders) y desactivar la convención de coma decimal.
+
+## Skill `/biblio-check` (Claude Code)
+
+En `.claude/skills/biblio-check/` se incluye un skill para quienes usen Claude Code: valida el **contenido** de cada entrada citada de `bibliography.bib` contra fuentes externas (ADS, CrossRef, arXiv), es decir, que título, autores, año, journal y DOI correspondan realmente al mismo paper. Detecta entradas con metadatos mezclados, duplicados y campos malformados, y propone el bloque BibTeX corregido sin modificar nada por sí mismo (`make check` solo verifica que las keys citadas *existan*; este skill verifica que digan la verdad).
 
 ## Requisitos
 - Motores y Paquetes de TeX Live o MiKTeX:
