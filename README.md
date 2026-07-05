@@ -13,6 +13,7 @@ Este template está diseñado para tesis de Doctorado en Ciencias Aplicadas y de
 - Soporte completo para español y fuentes modernas a través del motor `XeLaTeX`.
 - Chequeos mecánicos instantáneos sin compilar (`make check`): referencias rotas, labels duplicados, citas sin entrada en el `.bib` y estilo, extensibles por proyecto vía `scripts/check_config.json`.
 - Skill `/biblio-check` para Claude Code (`.claude/skills/`): validación de los metadatos de `bibliography.bib` contra fuentes externas (ADS/CrossRef).
+- Skill `/audit-chapter` para Claude Code (`.claude/skills/`): auditoría mecánica y estructural de un capítulo (refs, citas, notación, estilo) clasificada por severidad, read-only.
 - Instrucciones pre diseñadas para agentes de inteligencia artificial (Copilot, Windsurf, Cursor) enfocadas en redacción académica puramente formal integradas en `AGENTS.md`.
 
 ## Estructura sugerida
@@ -45,6 +46,22 @@ Los comentarios `%` se ignoran siempre y el contenido de `\todo{}` se excluye de
 ## Skill `/biblio-check` (Claude Code)
 
 En `.claude/skills/biblio-check/` se incluye un skill para quienes usen Claude Code: valida el **contenido** de cada entrada citada de `bibliography.bib` contra fuentes externas (ADS, CrossRef, arXiv), es decir, que título, autores, año, journal y DOI correspondan realmente al mismo paper. Detecta entradas con metadatos mezclados, duplicados y campos malformados, y propone el bloque BibTeX corregido sin modificar nada por sí mismo (`make check` solo verifica que las keys citadas *existan*; este skill verifica que digan la verdad).
+
+## Skill `/audit-chapter` (Claude Code)
+
+En `.claude/skills/audit-chapter/` se incluye un skill que audita un capítulo (`chapters/chapter-N.tex`) contra el perfil de estilo y las convenciones de notación del proyecto, la bibliografía y las referencias cruzadas. Clasifica los hallazgos por severidad (A técnicos, B sustantivos, C estilo, E estructura; con `--deep` agrega D citación y E-semántico) para discutirlos ítem por ítem **antes** de editar: es read-only, no aplica fixes por sí mismo. Con `--save` persiste el reporte completo en `AUDITORIA-cap-N.md`.
+
+El skill lee la tabla de notación y el perfil de estilo desde **`CLAUDE.md`, que el template incluye como esqueleto a rellenar** (ver sección siguiente): la tabla de símbolos reservados viene vacía y el perfil de estilo trae las convenciones formales genéricas (sin em-dash, decimales con coma, frases vetadas, referencias cruzadas RAE) más una sección "voz del autor" para completar. Sin un `CLAUDE.md` completo, `audit-chapter` corre igual los chequeos mecánicos (refs, citas, estructura) y saltea los de notación y estilo.
+
+## `CLAUDE.md` (esqueleto a rellenar)
+
+El archivo `CLAUDE.md` es la fuente de verdad que consumen los skills de Claude Code (notación, perfil de estilo, convenciones del proyecto). **Se entrega como esqueleto**: hay que completarlo con los datos y las convenciones de cada tesis antes de que rinda al máximo. Qué rellenar:
+
+- **Contexto del proyecto**: título, autor, director, institución, tema (placeholders al inicio).
+- **Tabla de notación matemática**: qué letra/símbolo se reserva para qué cantidad (una sola acepción por símbolo). La tabla viene vacía; `audit-chapter` la usa para detectar colisiones de notación.
+- **Voz del autor**: las frases características, giros y "lo que NO suena como el autor", que dependen de cada persona. Las convenciones formales genéricas (RAE, coma decimal, em-dash, clichés) ya vienen cargadas.
+
+Mientras el esqueleto esté sin rellenar, los skills funcionan en modo degradado (solo lo mecánico); no es un error, es lo esperado hasta que lo completes.
 
 ## Requisitos
 - Motores y Paquetes de TeX Live o MiKTeX:
