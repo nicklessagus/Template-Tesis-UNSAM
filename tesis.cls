@@ -85,6 +85,24 @@
 \renewcommand{\listfigurename}{Índice de figuras}
 \renewcommand{\listtablename}{Índice de tablas}
 
+% Títulos de sección alineados a la izquierda (ragged right): replican los
+% valores por defecto de report y añaden \raggedright, para que los títulos
+% largos se partan en varias líneas en vez de desbordar el margen derecho
+% (los encabezados justificados descartan el corte cuando la primera línea
+% quedaría demasiado holgada). Los títulos de una sola línea no cambian.
+\renewcommand\section{\@startsection{section}{1}{\z@}%
+  {-3.5ex \@plus -1ex \@minus -.2ex}%
+  {2.3ex \@plus.2ex}%
+  {\normalfont\Large\bfseries\raggedright}}
+\renewcommand\subsection{\@startsection{subsection}{2}{\z@}%
+  {-3.25ex\@plus -1ex \@minus -.2ex}%
+  {1.5ex \@plus .2ex}%
+  {\normalfont\large\bfseries\raggedright}}
+\renewcommand\subsubsection{\@startsection{subsubsection}{3}{\z@}%
+  {-3.25ex\@plus -1ex \@minus -.2ex}%
+  {1.5ex \@plus .2ex}%
+  {\normalfont\normalsize\bfseries\raggedright}}
+
 % Espaciado
 \onehalfspacing
 
