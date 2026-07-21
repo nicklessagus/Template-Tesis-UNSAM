@@ -1,6 +1,20 @@
 # Template Tesis Doctoral UNSAM
 
+[![CI](https://github.com/nicklessagus/Template-Tesis-UNSAM/actions/workflows/ci.yml/badge.svg)](https://github.com/nicklessagus/Template-Tesis-UNSAM/actions/workflows/ci.yml)
+[![Version](https://img.shields.io/github/v/tag/nicklessagus/Template-Tesis-UNSAM?label=version)](https://github.com/nicklessagus/Template-Tesis-UNSAM/tags)
+[![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
+[![Use this template](https://img.shields.io/badge/Use%20this-template-2ea44f?logo=github)](https://github.com/nicklessagus/Template-Tesis-UNSAM/generate)
+
 Este template está diseñado para tesis de Doctorado en Ciencias Aplicadas y de la Ingeniería de la Universidad Nacional de San Martín (UNSAM), o cualquier otro programa similar que comparta la identidad y formato institucional.
+
+## Usar este template
+
+Hacé clic en **Use this template → Create a new repository** (el botón verde arriba a la derecha, o el badge de acá) para generar un repositorio nuevo con esta estructura y un historial limpio, sin forkear. Después, en tu copia:
+
+1. **Completá `CLAUDE.md`**: contexto de la tesis (título, autor, director), tabla de notación y voz del autor. Es la fuente de verdad de los skills de Claude Code (ver más abajo).
+2. **Editá la carátula**: variables `\titulo`, `\autor`, `\director`, `\institucion` al comienzo de `main.tex`.
+3. **Escribí los capítulos** en `chapters/chapter-N.tex` y compilá con `make` (ver más abajo).
+4. **Adaptá `AGENTS.md` y `scripts/check_config.json`** a la jerga y terminología de tu campo.
 
 ## Características principales
 - Compilación modular por capítulos (cada capítulo es un archivo independiente en `chapters/`).
@@ -99,3 +113,14 @@ texto (`innerleftmargin`) se ajustan en la definición del entorno dentro de `te
 - **Marca de agua**: En `main.tex`, descomentar la línea de `\draftwatermarkon` para activar en toda la tesis el texto cruzado "DRAFT". Si se compila un capítulo modular y se desea marca de agua, conviene pasar temporalmente este comando al interior de ese capítulo.
 - **Formato avanzado**: Editar `tesis.cls` si se necesita alterar jerarquías de TOC, modificar la inter-línea o reajustar los escudos de la universidad.
 - **Flujo con LLMs**: Conviene modificar en `AGENTS.md` el título central y la jerga esperada, para adecuar el asistente IA al campo científico correspondiente.
+
+## Integración continua (CI)
+
+El workflow `.github/workflows/ci.yml` (badge de CI arriba) corre en cada push y pull request a `main`, en dos jobs:
+
+- **Chequeos mecánicos**: ejecuta `make check` (Python, sin TeX). Segundos.
+- **Compilar PDF**: compila la tesis con XeLaTeX + biber dentro del contenedor oficial `texlive/texlive`, igual que `make` en local, y sube `tesis.pdf` como artefacto descargable de la corrida. Garantiza que el template siempre compila.
+
+## Licencia
+
+Publicado bajo licencia [MIT](LICENSE): usá, modificá y redistribuí libremente, conservando el aviso de copyright.

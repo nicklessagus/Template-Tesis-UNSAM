@@ -1,0 +1,46 @@
+name: CI
+
+# Respaldo del badge de CI del README.
+#  - check: chequeos mecánicos en Python (segundos, sin TeX).
+#  - build: compila la tesis con XeLaTeX + biber dentro del contenedor
+#    oficial texlive/texlive (imagen pesada pero garantiza todos los paquetes),
+#    igual que `make` en local, y sube el PDF como artefacto.
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  check:
+    name: Chequeos mecánicos (make check)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.x'
+      - name: make check
+        run: make check
+
+  build:
+    name: Compilar PDF (XeLaTeX + biber)
+    runs-on: ubuntu-latest
+    container: texlive/texlive:latest
+    steps:
+      - name: Instalar make y git (para make y actions/checkout)
+        run: apt-get update && apt-get install -y --no-install-recommends make git
+      - uses: actions/checkout@v4
+      - name: Compilar tesis
+        run: make
+      - name: Subir PDF como artefacto
+        uses: actions/upload-artifact@v4
+        with:
+          name: tesis-pdf
+          path: tesis.pdf
+          if-no-files-found: error
