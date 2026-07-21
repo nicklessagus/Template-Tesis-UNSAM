@@ -22,6 +22,7 @@
 \RequirePackage{amsmath,amssymb}
 \RequirePackage{todonotes}
 \RequirePackage{lipsum}
+\RequirePackage{mdframed}
 \setlength{\marginparwidth}{2cm} % Ajuste para todonotes
 \RequirePackage[
   backend=biber,
@@ -39,6 +40,24 @@
 
 % Definición de color para links (CMYK 50, 30, 10, 0)
 \definecolor{colorUNSAM}{cmyk}{0.50, 0.30, 0.10, 0}
+
+% Entorno para resaltar un párrafo con una barra vertical al margen izquierdo.
+% Sobrio, sin fondo ni recuadro; seguro ante saltos de página. Uso:
+%   \begin{destacado} ... \end{destacado}
+\newmdenv[
+  topline=false,
+  bottomline=false,
+  rightline=false,
+  leftline=true,
+  linewidth=2.5pt,
+  linecolor=colorUNSAM,
+  innerleftmargin=12pt,
+  innerrightmargin=0pt,
+  innertopmargin=2pt,
+  innerbottommargin=2pt,
+  skipabove=0.8\baselineskip,
+  skipbelow=0.8\baselineskip
+]{destacado}
 
 % Configuración de encabezados y pies de página
 \pagestyle{fancy}

@@ -78,6 +78,22 @@ El paquete `todonotes` está cargado por defecto en `tesis.cls`. Variantes habit
 - `\missingfigure{descripción}` — caja gris con un ícono de imagen pendiente; útil mientras no se tenga la figura final.
 - `\listoftodos` — listado de todos los TODOs del documento (lo usa `make todos` para generar un PDF rápido con la lista de pendientes).
 
+## Resaltar un párrafo (`destacado`)
+
+`tesis.cls` define el entorno `destacado` (basado en `mdframed`) para resaltar un
+párrafo con una barra vertical fina en el color institucional al margen izquierdo,
+sin fondo ni recuadro y seguro ante saltos de página. Es una alternativa más sobria
+que poner el párrafo entero en negrita. Uso:
+
+```latex
+\begin{destacado}
+Idea o resultado que conviene señalar.
+\end{destacado}
+```
+
+El grosor de la barra (`linewidth`), el color (`linecolor`) y la separación con el
+texto (`innerleftmargin`) se ajustan en la definición del entorno dentro de `tesis.cls`.
+
 ## Personalización Rápida
 - **Carátula e Información**: Editar el comando de variables propias de la tesis (`\titulo`, `\autor`, `\director`, `\institucion`) al comienzo de `main.tex`.
 - **Marca de agua**: En `main.tex`, descomentar la línea de `\draftwatermarkon` para activar en toda la tesis el texto cruzado "DRAFT". Si se compila un capítulo modular y se desea marca de agua, conviene pasar temporalmente este comando al interior de ese capítulo.

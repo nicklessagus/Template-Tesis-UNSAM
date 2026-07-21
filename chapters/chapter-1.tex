@@ -13,9 +13,19 @@
 
 Texto de ejemplo para el capítulo 1, incluyendo una cita de ejemplo \cite{latexcompanion}.
 
-\lipsum[1-15]
+\lipsum[1-2]
+
+El entorno \texttt{destacado} resalta un párrafo con una barra vertical al margen
+izquierdo, útil para una idea o un resultado que conviene señalar sin recargar la página:
+
+\begin{destacado}
+\lipsum[3][1-4]
+\end{destacado}
+
+\lipsum[4-14]
 
 \section{Motivación}
+\todo[inline]{Redactar la motivación del trabajo: contexto del problema, brecha que se busca cubrir y aporte de la tesis.}
 \missingfigure{Agregar figura de motivación}
 
 % Al compilar el capítulo por separado, imprimimos la bibliografía local
