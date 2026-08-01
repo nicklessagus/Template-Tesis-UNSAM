@@ -48,6 +48,10 @@ chapter-%:
 check:
 	@python3 scripts/check_tesis.py
 
+# Chequeo de un capítulo: make check-chapter-1 (escanea todo, reporta sólo ese)
+check-chapter-%:
+	@python3 scripts/check_tesis.py $*
+
 # Generar lista de TODOs (requiere todonotes)
 todos:
 	$(LATEX) -interaction=nonstopmode "\\listoftodos\\end{document}" > /dev/null

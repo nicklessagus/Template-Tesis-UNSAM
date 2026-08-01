@@ -19,6 +19,10 @@ AVISOS (no fallan):
   - prefijo img/ en \includegraphics (redundante con \graphicspath)
   - patrones del proyecto definidos en scripts/check_config.json
 
+Uso: check_tesis.py [N]  (make check / make check-chapter-N). Con N, el escaneo
+sigue siendo global (labels, refs y citas cruzan capítulos) y sólo se filtra el
+reporte al capítulo N; el exit code refleja los errores de ese capítulo.
+
 El contenido de comentarios (%) se ignora siempre; el de \todo{} se ignora
 para los AVISOS de estilo (los todos son notas del autor) pero se incluye en
 los chequeos mecánicos (un \ref roto dentro de un \todo genera warning real).
@@ -94,9 +98,29 @@ def scan_pattern(files_text, pattern, message, bucket, flags=0):
             bucket.append((path.name, line_of(text, m.start()), message))
 
 
+def parse_focus(argv):
+    r"""Capítulo a reportar (make check-chapter-3), o None si se reporta todo.
+
+    El escaneo es siempre global: labels, refs y entradas del bib cruzan
+    capítulos, así que leer un solo archivo daría por rota toda referencia a
+    otro capítulo. El foco filtra únicamente lo que se imprime.
+    """
+    if len(argv) < 2 or not argv[1].strip():
+        return None
+    arg = argv[1].strip()
+    m = re.fullmatch(r"(?:chapters/)?(?:chapter-)?(\d+)(?:\.tex)?", arg)
+    if not m:
+        sys.exit(f"uso: check_tesis.py [N]  (N = número de capítulo; recibí '{arg}')")
+    name = f"chapter-{m.group(1)}.tex"
+    if not any(p.name == name for p in TEX_FILES):
+        sys.exit(f"no existe chapters/{name}")
+    return name
+
+
 def main():
     config = load_config()
     whitelist = set(config.get("whitelist_refs", []))
+    focus = parse_focus(sys.argv)
 
     raw = {p: p.read_text(encoding="utf-8") for p in TEX_FILES}
     nocomment = {p: strip_comments(t) for p, t in raw.items()}          # mecánica
@@ -185,18 +209,23 @@ def main():
         for fname, lineno, msg in sorted(bucket):
             print(f"  {tag} {fname}:{lineno}  {msg}")
 
+    hits = errors if focus is None else [e for e in errors if e[0] == focus]
+    avisos = warnings if focus is None else [w for w in warnings if w[0] == focus]
+    scope = "" if focus is None else f" [solo {focus}]"
+
     todo_count = sum(len(re.findall(r"\\todo(?:\[[^\]]*\])?\{", t)) for t in nocomment.values())
 
-    if errors:
-        print(f"ERRORES ({len(errors)}):")
-        show(errors, "[E]")
-    if warnings:
-        print(f"AVISOS ({len(warnings)}):")
-        show(warnings, "[W]")
-    print(f"INFO: {todo_count} \\todo, {len(labels)} labels, {len(bib_keys)} entradas bib.")
-    if not errors:
-        print("OK: sin errores mecánicos.")
-    return 1 if errors else 0
+    if hits:
+        print(f"ERRORES ({len(hits)}){scope}:")
+        show(hits, "[E]")
+    if avisos:
+        print(f"AVISOS ({len(avisos)}){scope}:")
+        show(avisos, "[W]")
+    print(f"INFO: {todo_count} \\todo, {len(labels)} labels, "
+          f"{len(bib_keys)} entradas bib (tesis completa).")
+    if not hits:
+        print(f"OK: sin errores mecánicos{scope}.")
+    return 1 if hits else 0
 
 
 if __name__ == "__main__":

@@ -91,7 +91,7 @@ de él, lo reporta como pregunta [B], no como error.
 ## Convenciones LaTeX
 
 - **Compilación**: usar `make` / `make chapter-N` (nunca xelatex/biber directo).
-- **Chequeo mecánico**: `make check` después de editar `.tex` (refs↔labels, citas↔bib, estilo greppable). Extensible por proyecto vía `scripts/check_config.json` (agregar ahí los patrones de terminología/grafía propios de la tesis).
+- **Chequeo mecánico**: `make check` después de editar `.tex` (refs↔labels, citas↔bib, estilo greppable). Con `make check-chapter-N` el reporte se limita a `chapter-N.tex`, útil al iterar sobre un solo capítulo (el escaneo sigue siendo global, sólo se filtra la salida). Extensible por proyecto vía `scripts/check_config.json` (agregar ahí los patrones de terminología/grafía propios de la tesis).
 - **Citas**: `\citep{}` para parentéticas, `\citet{}` para citas en el texto.
 - **Referencias cruzadas**: ver la regla RAE de la sección de estilo.
 - **Decimales con coma** (ver arriba).

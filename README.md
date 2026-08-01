@@ -47,6 +47,7 @@ Por comodidad, el proyecto incluye un `Makefile` listo para ejecutarse tanto de 
 - `make clean`: Limpia todos los archivos intermedios ensuciando la raíz y capítúlos.
 - `make distclean`: Realiza idéntico a clean, pero además borra los PDFs finales (`tesis.pdf` y los de la carpeta de capítulos).
 - `make check`: Chequeos mecánicos instantáneos sin compilar (requiere Python 3). Ver sección siguiente.
+- `make check-chapter-1` (o 2, 3, etc.): Idéntico, pero acota el reporte a ese capítulo.
 
 ## Chequeos mecánicos (`make check`)
 
@@ -54,6 +55,8 @@ Por comodidad, el proyecto incluye un `Makefile` listo para ejecutarse tanto de 
 
 - **Errores** (exit 1): `\ref` a labels inexistentes, labels duplicados, citas sin entrada en `bibliography.bib`, `\label` dentro de un display sin numerar `\[...\]` (bug silencioso: la referencia imprime el número de sección), `\setcounter{chapter}` inconsistente con el número de archivo, `\includegraphics` sin archivo en `img/`.
 - **Avisos** (no fallan): em-dashes, decimales con punto en math mode, `\citep` usado como sujeto de la oración, prefijo `img/` redundante.
+
+**Para trabajar sobre un capítulo** existe `make check-chapter-3` (calca el `chapter-3` de la compilación), que reporta únicamente los hallazgos de `chapters/chapter-3.tex` y devuelve exit 1 sólo si ese capítulo tiene errores. El escaneo sigue siendo global aunque el reporte se filtre: labels, referencias y citas cruzan capítulos, de modo que leer un archivo suelto daría por rota toda referencia a otro capítulo. El bloque `INFO` conserva los totales de la tesis completa.
 
 Los comentarios `%` se ignoran siempre y el contenido de `\todo{}` se excluye de los avisos de estilo. **Para extender los chequeos al vocabulario de cada tesis** (terminología, grafías, frases vetadas) alcanza con agregar pares regex/mensaje en `scripts/check_config.json`, sin tocar el script; el mismo archivo permite whitelistear referencias rotas conscientes (placeholders) y desactivar la convención de coma decimal.
 

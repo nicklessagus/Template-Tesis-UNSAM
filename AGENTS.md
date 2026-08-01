@@ -140,6 +140,7 @@ Para compilar el documento LaTeX, validar cambios o cuando el usuario lo solicit
 | `make` / `make pdf` | Compila la tesis completa (xelatex → biber → xelatex × 2), mueve a `tesis.pdf` y limpia auxiliares |
 | `make chapter-N` | Compila `chapters/chapter-N.tex` standalone con `TEXINPUTS=..`, deja `chapters/chapter-N.pdf` |
 | `make check` | Chequeos mecánicos sin compilar: refs↔labels, labels duplicados, citas↔bib, `\label` en display sin numerar, em-dash, decimales en math. Errores → exit 1; avisos de estilo no fallan. Extensible en `scripts/check_config.json` |
+| `make check-chapter-N` | Igual, pero reporta sólo `chapter-N.tex` (el escaneo sigue siendo global, se filtra la salida) |
 | `make todos` | Genera la lista de `\todo{}` pendientes |
 | `make clean` | Borra archivos auxiliares (`.aux`, `.log`, `.bbl`, `.bcf`, etc.) |
 | `make distclean` | `clean` + borra el PDF final y los PDFs por capítulo |
