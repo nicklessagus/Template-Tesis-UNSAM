@@ -84,7 +84,8 @@ Mientras el esqueleto esté sin rellenar, los skills funcionan en modo degradado
 - Motores y Paquetes de TeX Live o MiKTeX:
   - `XeLaTeX`
   - `biber`
-- Paquetes esenciales incluidos en el `.cls`: `subfiles`, `todonotes`, `draftwatermark`, `hyperref`, `babel` (spanish), `fontspec`, entre otros habituales.
+- Paquetes esenciales incluidos en el `.cls`: `subfiles`, `todonotes`, `draftwatermark`, `hyperref`, `polyglossia` (español), `fontspec`, entre otros habituales.
+- Patrones de silabación en español: en instalaciones parciales de TeX Live hay que instalarlos aparte (`texlive-lang-spanish` en Debian/Ubuntu). Sin ellos el documento compila igual, pero XeLaTeX no corta palabras a fin de línea.
 
 ## TODOs y notas (`todonotes`)
 
