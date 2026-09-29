@@ -20,7 +20,7 @@ Trigger on:
 Do **NOT** trigger on:
 - Specific line-level corrections ("fix the typo on line 42").
 - Stylistic rewriting of a specific paragraph.
-- Pure bibliography questions (use `/biblio-check` if/when it exists).
+- Pure bibliography questions (use `/biblio-check`).
 - Cross-chapter or thesis-wide consistency questions (out of scope for
   this skill).
 
@@ -29,8 +29,8 @@ Do **NOT** trigger on:
 - `--deep` — adds severity categories **D** (empirical claims that should
   have a citation but don't) and **E-semantic** (logical jumps where the
   conclusion does not follow from the stated premises). Slower (~3-5 min)
-  because it spawns an `Explore` sub-agent to read the chapter in isolation
-  and produce focused findings.
+  because it spawns a general-purpose sub-agent to read the chapter in
+  isolation and produce focused findings.
 - `--save` — writes the full report to `AUDITORIA-cap-<N>.md` in the repo
   root in addition to the in-chat summary. By default, no file is written.
 
@@ -55,11 +55,10 @@ Flags may be combined (`--deep --save`).
   are not cited; incomplete subsections (only a `\todo[inline]`); pending
   architectural decisions (`\todo` containing "decisión", "pendiente",
   "definir"); forward references that disrupt linear reading.
-- **[C]** — Style and micro-fixes derived from `CLAUDE.md` "Lo que NO suena
-  como el autor": em-dashes (`---`), "el mismo / la misma" used as
-  anaphoric pronouns, "es crucial / fundamental / cabe destacar / es
-  importante notar / en este sentido", decimals with point in math mode
-  (Spanish uses comma), ASCII quotes `"..."`.
+- **[C]** — Style and micro-fixes: the rules in `CLAUDE.md` "Convenciones
+  formales" (em-dash, decimal comma, vetoed phrases, anaphoric "el mismo",
+  cross-reference form, quotes), plus any author-voice rules filled in
+  under "Voz del autor".
 - **[D]** — (with `--deep` only) Empirical claims that need a citation but
   don't have one nearby. Numerical facts, historical claims, methods
   attributed to others, derivations reproduced from external sources.
@@ -71,9 +70,9 @@ Flags may be combined (`--deep --save`).
 
 ## Process
 
-Execute these steps in order. Do not skip steps; do not parallelize them
-unless explicitly noted. Use Bash/grep for mechanical checks and Read for
-file inspection. Use the Edit tool **never** during an audit.
+Step 1b comes first because its requests steer the rest; Steps 2-5 are
+independent mechanical checks. Use Bash/grep for mechanical checks and Read
+for file inspection. Use the Edit tool **never** during an audit.
 
 ### Step 1 — Inventory
 
@@ -130,8 +129,9 @@ labels as [A].
 `\citet`, `\citeyear`, `\citealt`), verify that the key exists in
 `bibliography.bib`. Report missing keys as [A].
 
-**Chapter counter.** Verify `\setcounter{chapter}{N}` is consistent with the
-chapter's position in `main.tex` (`\subfile{chapters/chapter-K}` order).
+**Chapter counter.** For chapter K (K > 1) in `main.tex`'s
+`\subfile{chapters/chapter-K}` order, the standalone guard must set
+`\setcounter{chapter}{K-1}` (chapter 1 has none).
 
 **Notation conflicts inside the chapter (high priority).**
 Read the reserved-symbol table from `CLAUDE.md` (cada tesis define la suya:
@@ -188,7 +188,7 @@ Run grep against the chapter content (skip lines starting with `%`):
 | `---` LaTeX (em-dash) usado como aside en medio de oración | [C] |
 | Unicode em-dash `—` (U+2014) en prosa | [C] |
 | `\bel mismo\b`, `\bla misma\b`, `\blos mismos\b`, `\blas mismas\b` | [C] — context-sensitive, heuristic: preceded by comma + verb |
-| `\bes crucial\b`, `\bes fundamental\b`, `\bcabe destacar\b`, `\bes importante notar\b`, `\ben este sentido\b` | [C] |
+| Frases vetadas listadas en `CLAUDE.md` "Convenciones formales" (leer la lista actual, no hardcodearla) | [C] |
 | Decimal with `.` in math mode (e.g., `$0.95$`) | [C] |
 | ASCII quotes `"..."` (excluding code blocks like `\texttt{}`) | [C] |
 | Repeated word within ~50 words (e.g., "importante" twice nearby) | [C], very conservative |
@@ -225,7 +225,8 @@ una subsección vacía y ya está en [B], directamente omitirla aquí.
 
 ### Step 6 — [D] + [E-semantic] (only with `--deep`)
 
-Spawn an `Explore` sub-agent. Brief the agent with:
+Spawn a general-purpose sub-agent (it needs to read the whole chapter and
+judge it, not just locate text). Brief the agent with:
 
 - The target chapter file path.
 - The relevant excerpts of `CLAUDE.md` (notation + style profile).
@@ -250,7 +251,8 @@ Spawn an `Explore` sub-agent. Brief the agent with:
   Para cada finding, provide line number, the exact text, and a one-line
   reason. Be conservative: when in doubt, formulate as a question
   ('¿necesita cita?', '¿es la misma cantidad?', '¿es trabajo propio?')
-  rather than an assertion. Cap output at 15 findings total. Return as
+  rather than an assertion. Order findings by how much they would matter
+  to a thesis reviewer; list the minor ones briefly at the end. Return as
   a structured list with each finding tagged by category (1)/(2)/(3)/(4)."
 
 Wait for the agent to return. Merge its findings into the report:
@@ -354,6 +356,4 @@ or "¿Discutimos los [A] primero?".
 
 - **Workflow continuation**. After delivering the report, the conversation
   resumes the project's standard revision flow: discuss findings item by
-  item, decide which to apply, commit fixes atomically. This is encoded in
-  the user's memory (`feedback_revision_workflow`) and does not need to be
-  repeated in chat.
+  item, decide which to apply, commit fixes atomically.
